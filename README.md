@@ -6,7 +6,10 @@ This is a README file for Coding Challenge of Elementree Software interview
 
 ## Requirements
 
-Ensure that the NODE.js (>= v16) is installed in your machine before you launch the server.
+ - Ensure that the NODE.js (>= v16) is installed in your machine before you launch the server.
+ See: `https://nodejs.org/en/download/`
+
+ - Install Expo CLI and Expo GO See: `https://docs.expo.dev/get-started/installation/`
 
 First you need to run the api server (backend) before you launch the app.
 Once the backend is up and running, you will be able to see the API URL needed to run the app.
