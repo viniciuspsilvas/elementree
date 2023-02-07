@@ -1,41 +1,10 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { useCoordinates } from "./src/hooks/useCoordinates";
 
 const App = () => {
-  const [coordinates, setCoordinates] = useState([]);
-
-  useEffect(() => {
-    const fetchCoordinates = async () => {
-      try {
-        const data = {
-          boundaryBox: {
-            latitudeMin: -28.0407250895137,
-            latitudeMax: -28.07199412367492,
-
-            longitudeMin: 153.4079275405774,
-            longitudeMax: 153.43933741928933
-          },
-          numberOfCoordinates: 4
-        }
-        console.log("#### process.env.API_URL", process.env.API_URL)
-
-        const response = await axios.post(
-          `${process.env.API_URL}/generateCoordinates`,
-          data
-        );
-
-        setCoordinates(response.data);
-      } catch (error) {
-
-        // TODO: Show a alert error
-        console.error(error);
-      }
-    };
-
-    fetchCoordinates();
-  }, []);
+  const { coordinates } = useCoordinates()
 
   return (
     <View style={styles.container}>
