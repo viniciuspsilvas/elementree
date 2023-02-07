@@ -1,8 +1,12 @@
+
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { ErrorMessage } from "./src/components/ErrorMessage";
+import { LoadingSpinner } from "./src/components/LoadingSpinner";
+import { NoDataFound } from "./src/components/NoDataFound";
+import { RefreshButton } from "./src/components/RefreshButton";
 import { useCoordinates } from "./src/hooks/useCoordinates";
-import { ActivityIndicator } from 'react-native';
 
 // Mermaid Beach
 const initialRegion = {
@@ -13,14 +17,18 @@ const initialRegion = {
 }
 
 const App = () => {
-  const { response, loading, error } = useCoordinates()
+  const { response, loading, error, refetch } = useCoordinates()
+
+  const clickHandler = () => {
+    refetch()
+  };
 
   if (loading) {
-    return <Loading />;
+    return <LoadingSpinner />;
   }
 
   if (error) {
-    return <ErrorMessage error={error.message} />;
+    return <ErrorMessage error={error.message} onRetry={refetch} />;
   }
   if (!!response === false || response.length === 0) {
     return <NoDataFound />;
@@ -28,6 +36,8 @@ const App = () => {
 
   return (
     <View style={styles.container} id="mainView">
+      <RefreshButton onPress={clickHandler} />
+
       <MapView
         style={styles.map}
         initialRegion={initialRegion}>
@@ -45,36 +55,9 @@ const App = () => {
   );
 };
 
-const ErrorMessage = ({ error }) => (
-  <View style={styles.center}  id="errorView">
-    <Text style={styles.error}>{error}</Text>
-  </View>
-)
-
-const Loading = () => (
-  <View style={styles.center} id="loading" >
-    <ActivityIndicator size="large" color="#0000ff" />
-  </View>
-
-)
-
-const NoDataFound = () => (
-  <View style={styles.center} id="noDataFound">
-    <Text>No data found</Text>
-  </View>
-)
-
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  error: {
-    color: '#ff0000'
-  },
-  center: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   map: {
     flex: 1,
