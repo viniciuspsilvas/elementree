@@ -1,7 +1,7 @@
 
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { ErrorMessage } from "./src/components/ErrorMessage";
 import { LoadingSpinner } from "./src/components/LoadingSpinner";
 import { NoDataFound } from "./src/components/NoDataFound";
@@ -44,6 +44,7 @@ const App = () => {
         {response.map((coordinate, index) => (
           <Marker
             key={index}
+            provider={PROVIDER_GOOGLE}
             coordinate={{
               latitude: coordinate.latitude,
               longitude: coordinate.longitude,

@@ -15,5 +15,5 @@ app.listen(port, () => {
         }
     }
 
-    console.log(`Server running at API_URL=http://${addresses[0]}:3000/`);
+    console.log(`Server running at API_URL=http://${addresses[0]}:${port}/`);
 });

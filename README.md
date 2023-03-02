@@ -33,4 +33,4 @@ Once the backend is up and running, you will be able to see the API URL needed t
 ## Running the App
 
 - Open a terminal window.
-- Run the following command: `API_URL=<your-api-url> npx expo start`
+- Run the following command: `API_URL=http://10.0.0.6:3000 npx expo start`
